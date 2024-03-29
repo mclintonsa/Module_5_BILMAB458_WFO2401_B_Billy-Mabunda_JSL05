@@ -1,4 +1,3 @@
-// Array of song objects. Add at least 5 songs with title, artist, and genre properties.
 const songs = [
     { title: "Hooked on a Feeling", artist: "Blue Swede", genre: "Pop" },
     { title: "Moonage Daydream", artist: "David Bowie", genre: "Rock" },
@@ -11,24 +10,34 @@ const songs = [
     { title: "Come and Get Your Love", artist: "Redbone", genre: "Rock" },
     { title: "I'm Not in Love", artist: "10cc", genre: "Pop" },
     { title: "Fooled Around and Fell in Love", artist: "Elvin Bishop", genre: "Rock" },
-    // Feel free to add even more songs
-];
-
-
-// Object containing each Guardian's preferred genre
-const guardians = {
+  ];
+  
+  // Object containing each Guardian's preferred genre
+  const guardians = {
     "Star-Lord": "Rock",
     "Gamora": "Pop",
-    // Add preferences for Drax, Rocket, and Groot
-};
-
-// Function to generate playlist based on preferred genre
-function generatePlaylist(guardians, songs) {
+    "Drax": "Rock",
+    "Rocket": "Pop",
+    "Groot": "R&B"
+  };
+  
+  // Function to generate playlist based on preferred genre
+  function generatePlaylist(guardians, songs) {
     // Use the map() function to create playlists for each Guardian
-    // Your code here
-}
-
-// Call generatePlaylist and display the playlists for each Guardian
-generatePlaylist(guardians, songs);
-
-
+    const playlists = Object.entries(guardians).map(([guardian, preferredGenre]) => {
+      const playlistSongs = songs.filter(song => song.genre === preferredGenre);
+      return `<div class="playlist">
+                <h2>${guardian}'s Playlist</h2>
+                <div class="songs">
+                  ${playlistSongs.map(song => `<p class="song-title">${song.title} - ${song.artist}</p>`).join('')}
+                </div>
+              </div>`;
+    });
+  
+    // Display the playlists in the HTML
+    const playlistsContainer = document.getElementById('playlists');
+    playlistsContainer.innerHTML = playlists.join('');
+  }
+  
+  // Call generatePlaylist and display the playlists for each Guardian
+  generatePlaylist(guardians, songs);
